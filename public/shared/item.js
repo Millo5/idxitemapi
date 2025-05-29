@@ -1,4 +1,4 @@
-const { RARITY, isValidRarity } = require("./rarity");
+import { RARITY, isValidRarity } from "./rarity.js";
 
 
 /**
@@ -255,42 +255,43 @@ class EnchantmentItem extends Item {
 }
 
 
-module.exports = {
+function deserialiseItem(data) {
+    if (!data || !data.id) {
+        throw new Error('Invalid item data');
+    }
+
+    const setBasicItemProperties = (item, data) => {
+        if (data.name) item.setName(data.name);
+        if (data.description) item.setDescription(data.description);
+        if (data.material) item.setMaterial(data.material);
+        if (data["item-type"]) item.setItemType(data["item-type"]);
+        if (data.rarity && isValidRarity(data.rarity)) item.setRarity(data.rarity);
+    }
+
+
+    if (data.attributes && Array.isArray(data.attributes)) {
+        const item = new AttributedItem(data.id);
+        setBasicItemProperties(item, data);
+        item.attributes = data.attributes;
+        return item;
+    }
+
+    if (data.enchantment) {
+        const item = new EnchantmentItem(data.id, data.enchantment);
+        setBasicItemProperties(item, data);
+        return item;
+    }
+
+    const item = new Item(data.id);
+    setBasicItemProperties(item, data);
+    return item;
+}
+
+export {
     ITEM_TYPES,
     Item,
     StatsItem,
     AttributedItem,
     EnchantmentItem,
-
-    deserialiseItem(data) {
-        if (!data || !data.id) {
-            throw new Error('Invalid item data');
-        }
-
-        const setBasicItemProperties = (item, data) => {
-            if (data.name) item.setName(data.name);
-            if (data.description) item.setDescription(data.description);
-            if (data.material) item.setMaterial(data.material);
-            if (data["item-type"]) item.setItemType(data["item-type"]);
-            if (data.rarity && isValidRarity(data.rarity)) item.setRarity(data.rarity);
-        }
-
-
-        if (data.attributes && Array.isArray(data.attributes)) {
-            const item = new AttributedItem(data.id);
-            setBasicItemProperties(item, data);
-            item.attributes = data.attributes;
-            return item;
-        }
-
-        if (data.enchantment) {
-            const item = new EnchantmentItem(data.id, data.enchantment);
-            setBasicItemProperties(item, data);
-            return item;
-        }
-
-        const item = new Item(data.id);
-        setBasicItemProperties(item, data);
-        return item;
-    }
-};
+    deserialiseItem
+}

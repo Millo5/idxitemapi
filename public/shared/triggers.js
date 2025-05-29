@@ -13,14 +13,14 @@ const TRIGGER = {
     }
 };
 
+function isValidTrigger(trigger) {
+    if (Array.isArray(trigger)) {
+        return trigger.every(t => TRIGGER.getAll().includes(t));
+    }
+    return TRIGGER.getAll().includes(trigger);
+}
 
-module.exports = {
+export {
     TRIGGER,
-
-    isValidTrigger(trigger) {
-        if (Array.isArray(trigger)) {
-            return trigger.every(t => TRIGGER.getAll().includes(t));
-        }
-        return TRIGGER.getAll().includes(trigger);
-    },
+    isValidTrigger
 };

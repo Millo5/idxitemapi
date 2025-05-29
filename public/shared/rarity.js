@@ -14,10 +14,12 @@ const RARITY = {
 };
 
 
-module.exports = {
-    RARITY,
+function isValidRarity(rarity) {
+    return RARITY.getAll().includes(rarity);
+}
 
-    isValidRarity(rarity) {
-        return RARITY.getAll().includes(rarity);
-    }
+
+export {
+    RARITY,
+    isValidRarity
 }

@@ -1,5 +1,5 @@
-const { RARITY, isValidRarity } = require("./rarity");
-const { TRIGGER, isValidTrigger } = require("./triggers");
+import { RARITY, isValidRarity } from './rarity.js';
+import { TRIGGER, isValidTrigger } from './triggers.js';
 
 
 const ATTRIBUTE_TYPE = {
@@ -137,33 +137,33 @@ class Attribute {
     }
 }
 
+function deserialiseAttribute(data) {
+    if (!data || !data.id) {
+        throw new Error('Invalid attribute data');
+    }
+    
+    const attribute = new Attribute(data.id);
+    if (data.name) attribute.setName(data.name);
+    if (data.description) attribute.setDescription(data.description);
+    if (data.material) attribute.setMaterial(data.material);
+    if (data.rarity) attribute.setRarity(data.rarity);
+    if (data["attribute-type"]) {
+        attribute.setType(data["attribute-type"]);
+    }
+    if (data.target) attribute.setTarget(data.target);
+    if (data.rarity) attribute.setRarity(data.rarity);
+    
+    if (data.triggers) {
+        attribute.setTriggers(...data.triggers);
+    }
+
+    return attribute;
+}
 
 
-module.exports = {
+export {
     Attribute,
     ATTRIBUTE_TYPE,
     ATTRIBUTE_TARGET,
-
-    deserialiseAttribute(data) {
-        if (!data || !data.id) {
-            throw new Error('Invalid attribute data');
-        }
-        
-        const attribute = new Attribute(data.id);
-        if (data.name) attribute.setName(data.name);
-        if (data.description) attribute.setDescription(data.description);
-        if (data.material) attribute.setMaterial(data.material);
-        if (data.rarity) attribute.setRarity(data.rarity);
-        if (data["attribute-type"]) {
-            attribute.setType(data["attribute-type"]);
-        }
-        if (data.target) attribute.setTarget(data.target);
-        if (data.rarity) attribute.setRarity(data.rarity);
-        
-        if (data.triggers) {
-            attribute.setTriggers(...data.triggers);
-        }
-
-        return attribute;
-    }
-};
+    deserialiseAttribute
+}

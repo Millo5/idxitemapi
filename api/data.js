@@ -1,5 +1,6 @@
-const { Attribute, deserialiseAttribute } = require("../shared/attribute");
-const { Item, deserialiseItem } = require("../shared/item");
+import { Item, deserialiseItem } from "../public/shared/item.js";
+import { Attribute, deserialiseAttribute } from "../public/shared/attribute.js";
+import fs from 'fs';
 
 
 class Data {
@@ -11,7 +12,6 @@ class Data {
 
     load() {
 
-        const fs = require('fs');
         if (!fs.existsSync(this.datafile)) {
             throw new Error(`Data file ${this.datafile} does not exist`);
         }
@@ -42,7 +42,6 @@ class Data {
     }
 
     save() {
-        const fs = require('fs');
         const dataToSave = this.toJSON();
         fs.writeFileSync(this.datafile, JSON.stringify(dataToSave, null, 2), 'utf8');
     }
@@ -63,9 +62,16 @@ class Data {
 
     getItem(id) {
         if (!id || !this.items[id]) {
-            throw new Error(`Item with id ${id} does not exist`);
+            return null;
         }
         return this.items[id];
+    }
+
+    removeItem(id) {
+        if (!id || !this.items[id]) {
+            throw new Error(`Item with id ${id} does not exist`);
+        }
+        delete this.items[id];
     }
 
 
@@ -87,6 +93,13 @@ class Data {
         return this.attributes[id];
     }
 
+    removeAttribute(id) {
+        if (!id || !this.attributes[id]) {
+            throw new Error(`Attribute with id ${id} does not exist`);
+        }
+        delete this.attributes[id];
+    }
+
     
     clear() {
         this.items = {};
@@ -103,6 +116,6 @@ class Data {
 }
 
 
-module.exports = {
+export {
     Data
 }
