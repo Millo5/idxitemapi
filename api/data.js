@@ -1,3 +1,4 @@
+const { Attribute, deserialiseAttribute } = require("../shared/attribute");
 const { Item, deserialiseItem } = require("../shared/item");
 
 
@@ -32,15 +33,10 @@ class Data {
             this.addItem(item);
         });
 
+        console.log(data.attributes);
+
         data.attributes.forEach(attrData => {
-            const attribute = new Attribute(attrData.id)
-                .setName(attrData.name)
-                .setDescription(attrData.description)
-                .setRarity(attrData.rarity)
-                .setMaterial(attrData.material)
-                .setType(attrData.type)
-                .setTarget(attrData.target)
-                .setTriggers(attrData.triggers);
+            const attribute = deserialiseAttribute(attrData);
             this.addAttribute(attribute);
         });
     }
@@ -74,7 +70,7 @@ class Data {
 
 
     addAttribute(attribute) {
-        if (!attribute || !attribute.id) {
+        if (!attribute || !attribute.id || !(attribute instanceof Attribute)) {
             throw new Error('Invalid attribute data');
         }
         this.attributes[attribute.id] = attribute;

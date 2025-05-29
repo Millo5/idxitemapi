@@ -2,7 +2,7 @@ const { RARITY, isValidRarity } = require("./rarity");
 const { TRIGGER, isValidTrigger } = require("./triggers");
 
 
-const ATTRIBUTE_TYPES = {
+const ATTRIBUTE_TYPE = {
     ATTRIBUTE: 'attribute',
     ENCHANTMENT: 'enchantment',
     CURSE: 'curse',
@@ -12,7 +12,7 @@ const ATTRIBUTE_TYPES = {
     }
 }
 
-const ATTRIBUTE_TARGETS = {
+const ATTRIBUTE_TARGET = {
     ANY: 'any',
     
     TRINKET: 'trinket',
@@ -46,8 +46,8 @@ class Attribute {
         this.material = null;
 
         this.triggers = [];
-        this.type = ATTRIBUTE_TYPES.ATTRIBUTE;
-        this.target = ATTRIBUTE_TARGETS.ANY;
+        this.type = ATTRIBUTE_TYPE.ATTRIBUTE;
+        this.target = ATTRIBUTE_TARGET.ANY;
 
 
 
@@ -69,14 +69,14 @@ class Attribute {
             return this; 
         };
         this.setType = (type) => {
-            if (!Object.values(ATTRIBUTE_TYPES).includes(type)) {
+            if (!Object.values(ATTRIBUTE_TYPE).includes(type)) {
                 throw new Error(`Invalid type: ${type}`);
             }
             this.type = type; 
             return this; 
         };
         this.setTarget = (target) => {
-            if (!Object.values(ATTRIBUTE_TARGETS).includes(target)) {
+            if (!Object.values(ATTRIBUTE_TARGET).includes(target)) {
                 throw new Error(`Invalid target: ${target}`);
             }
             this.target = target; 
@@ -103,13 +103,13 @@ class Attribute {
         if (!Array.isArray(this.triggers)) {
             throw new Error('Triggers must be an array');
         }
-        if (this.type && !Object.values(ATTRIBUTE_TYPES).includes(this.type)) {
+        if (this.type && !Object.values(ATTRIBUTE_TYPE).includes(this.type)) {
             throw new Error(`Invalid type: ${this.type}`);
         }
         if (this.triggers.some(trigger => !TRIGGER.getAll().includes(trigger))) {
             throw new Error(`Invalid trigger in triggers: ${this.triggers}`);
         }
-        if (this.target && !Object.values(ATTRIBUTE_TARGETS).includes(this.target)) {
+        if (this.target && !Object.values(ATTRIBUTE_TARGET).includes(this.target)) {
             throw new Error(`Invalid target: ${this.target}`);
         }
     }
@@ -123,10 +123,10 @@ class Attribute {
         if (this.triggers.length > 0) {
             result.triggers = this.triggers;
         }
-        if (this.type && this.type !== ATTRIBUTE_TYPES.ATTRIBUTE) {
+        if (this.type && this.type !== ATTRIBUTE_TYPE.ATTRIBUTE) {
             result["attribute-type"] = this.type;
         }
-        if (this.target && this.target !== ATTRIBUTE_TARGETS.ANY) {
+        if (this.target && this.target !== ATTRIBUTE_TARGET.ANY) {
             result.target = this.target;
         }
         if (isValidRarity(this.rarity) && this.rarity !== RARITY.COMMON) {
@@ -141,6 +141,29 @@ class Attribute {
 
 module.exports = {
     Attribute,
-    ATTRIBUTE_TYPES,
-    ATTRIBUTE_TARGETS
+    ATTRIBUTE_TYPE,
+    ATTRIBUTE_TARGET,
+
+    deserialiseAttribute(data) {
+        if (!data || !data.id) {
+            throw new Error('Invalid attribute data');
+        }
+        
+        const attribute = new Attribute(data.id);
+        if (data.name) attribute.setName(data.name);
+        if (data.description) attribute.setDescription(data.description);
+        if (data.material) attribute.setMaterial(data.material);
+        if (data.rarity) attribute.setRarity(data.rarity);
+        if (data["attribute-type"]) {
+            attribute.setType(data["attribute-type"]);
+        }
+        if (data.target) attribute.setTarget(data.target);
+        if (data.rarity) attribute.setRarity(data.rarity);
+        
+        if (data.triggers) {
+            attribute.setTriggers(...data.triggers);
+        }
+
+        return attribute;
+    }
 };

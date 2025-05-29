@@ -123,14 +123,16 @@ class Item {
     toJSON() {
         this.validate();
 
-        const { id, name, description, material, itemType } = this;
+        const { id, name, description, material } = this;
         const json = {
             id,
             name,
             description,
-            material,
-            "item-type": itemType
+            material
         };
+        if (this.itemType && this.itemType !== ITEM_TYPES.MATERIAL) {
+            json["item-type"] = this.itemType;
+        }
         if (this.rarity && isValidRarity(this.rarity) && this.rarity !== RARITY.COMMON) {
             json.rarity = this.rarity;
         }

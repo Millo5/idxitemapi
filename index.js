@@ -2,9 +2,8 @@
 const express = require("express");
 const fs = require("fs"); 
 const path = require("path");
-const { Item, deserialiseItem, StatsItem } = require("./shared/item");
-const { RARITY } = require("./shared/rarity");
-const { Attribute, ATTRIBUTE_TYPES: ATTRIBUTE_TYPE, ATTRIBUTE_TARGETS: ATTRIBUTE_TARGET } = require("./shared/attribute");
+const { Item, StatsItem } = require("./shared/item");
+const { Attribute, ATTRIBUTE_TYPE, ATTRIBUTE_TARGET } = require("./shared/attribute");
 const { TRIGGER } = require("./shared/triggers");
 const { Data } = require("./api/data");
 const { error } = require("console");
@@ -17,18 +16,13 @@ const DATA_FILE = path.join(__dirname, "data.json");
 const data = new Data(DATA_FILE);
 
 // if data.json does not exist, create it with an empty array
-if (!fs.existsSync(DATA_FILE)) {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data.toJSON()));
-}
 try {
-    data.load();    
+    data.load();
 } catch (error) {
     console.error("Error loading data:", error.message);
     console.error("Creating new data file...");
     fs.writeFileSync(DATA_FILE, JSON.stringify(data.toJSON(), null, 2));
 }
-
-console.log(data);
 
 /////// ------------------------ ///////
 
@@ -37,16 +31,6 @@ var item = new Item("bone")
     .setDescription("I used to be a femur")
     .setMaterial("bone")
 console.log(item.toJSON());
-
-// var item2 = deserialiseItem({
-//     "id": "bone",
-//     "name": "Bone",
-//     "description": "I used to be a femur.",
-//     "rarity": "common",
-//     "material": "bone",
-//     "item-type": "material",
-// });
-// console.log(item2.toJSON());
 
 var item3 = new StatsItem("wooden-targe")
     .setName("Wooden Targe")
@@ -85,7 +69,6 @@ console.log(attribute3.toJSON());
 
 [item, item3].forEach(i => data.addItem(i));
 [attribute, attribute2, attribute3].forEach(a => data.addAttribute(a));
-// data.save();
 
 
 /////// ------------------------ ///////

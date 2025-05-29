@@ -12,8 +12,42 @@
       "name": "Wooden Targe",
       "description": "A small wooden shield.",
       "material": "oak_slab",
-      "item-type": "material"
+      "item-type": "material",
+      "stats": {
+        "armor": 5
+      }
     }
   ],
-  "attributes": []
+  "attributes": [
+    {
+      "id": "sharp",
+      "name": "Sharp",
+      "description": "Increases the damage of melee weapons.",
+      "material": "wooden_sword",
+      "attribute-type": "enchantment",
+      "target": "melee-weapon"
+    },
+    {
+      "id": "cursebound",
+      "name": "Cursebound",
+      "description": "This item cannot be dropped.",
+      "material": "weeping_vines",
+      "triggers": [
+        "drop"
+      ],
+      "attribute-type": "curse"
+    },
+    {
+      "id": "frostbite",
+      "name": "Frostbite",
+      "description": "Slows down the target on hit.",
+      "material": "snow_block",
+      "triggers": [
+        "hit",
+        "passive"
+      ],
+      "attribute-type": "enchantment",
+      "target": "weapon"
+    }
+  ]
 }
