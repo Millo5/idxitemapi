@@ -1,0 +1,146 @@
+const { RARITY, isValidRarity } = require("./rarity");
+const { TRIGGER, isValidTrigger } = require("./triggers");
+
+
+const ATTRIBUTE_TYPES = {
+    ATTRIBUTE: 'attribute',
+    ENCHANTMENT: 'enchantment',
+    CURSE: 'curse',
+
+    getAll() {
+        return Object.values(this).filter(value => typeof value === 'string');
+    }
+}
+
+const ATTRIBUTE_TARGETS = {
+    ANY: 'any',
+    
+    TRINKET: 'trinket',
+    OFFHAND: 'offhand',
+
+    EQUIPMENT: 'equipment', // Any weapon or armor piece
+    ARMOR: 'armor',
+    HELMET: 'helmet',
+    CHESTPLATE: 'chestplate',
+    LEGGINGS: 'leggings',
+    BOOTS: 'boots',
+    
+    WEAPON: 'weapon',
+    MELEE_WEAPON: 'melee-weapon',
+    RANGED_WEAPON: 'ranged-weapon',
+    
+    CONSUMABLE: 'consumable',
+
+    getAll() {
+        return Object.values(this).filter(value => typeof value === 'string');
+    }
+}
+
+
+class Attribute {
+    constructor(id) {
+        this.id = id;
+        this.name = null;
+        this.description = null;
+        this.rarity = RARITY.COMMON;
+        this.material = null;
+
+        this.triggers = [];
+        this.type = ATTRIBUTE_TYPES.ATTRIBUTE;
+        this.target = ATTRIBUTE_TARGETS.ANY;
+
+
+
+        this.setName = (name) => { this.name = name; return this; };
+        this.setDescription = (description) => { this.description = description; return this; };
+        this.setRarity = (rarity) => { 
+            if (!isValidRarity(rarity)) {
+                throw new Error(`Invalid rarity: ${rarity}`);
+            }
+            this.rarity = rarity; 
+            return this; 
+        };
+        this.setMaterial = (material) => { this.material = material; return this; };
+        this.setTriggers = (...triggers) => {
+            if (!isValidTrigger(triggers)) {
+                throw new Error(`Invalid trigger in triggers: ${triggers}`);
+            }
+            this.triggers = triggers; 
+            return this; 
+        };
+        this.setType = (type) => {
+            if (!Object.values(ATTRIBUTE_TYPES).includes(type)) {
+                throw new Error(`Invalid type: ${type}`);
+            }
+            this.type = type; 
+            return this; 
+        };
+        this.setTarget = (target) => {
+            if (!Object.values(ATTRIBUTE_TARGETS).includes(target)) {
+                throw new Error(`Invalid target: ${target}`);
+            }
+            this.target = target; 
+            return this; 
+        };
+    }
+
+    validate() {
+        if (!this.id) {
+            throw new Error('Attribute must have an ID');
+        }
+        if (typeof this.name !== 'string' || this.name.trim() === '') {
+            throw new Error('Attribute must have a valid name');
+        }
+        if (typeof this.description !== 'string') {
+            throw new Error('Attribute must have a valid description');
+        }
+        if (!isValidRarity(this.rarity)) {
+            throw new Error(`Invalid rarity: ${this.rarity}`);
+        }
+        if (!this.material || typeof this.material !== 'string') {
+            throw new Error('Attribute must have a valid material');
+        }
+        if (!Array.isArray(this.triggers)) {
+            throw new Error('Triggers must be an array');
+        }
+        if (this.type && !Object.values(ATTRIBUTE_TYPES).includes(this.type)) {
+            throw new Error(`Invalid type: ${this.type}`);
+        }
+        if (this.triggers.some(trigger => !TRIGGER.getAll().includes(trigger))) {
+            throw new Error(`Invalid trigger in triggers: ${this.triggers}`);
+        }
+        if (this.target && !Object.values(ATTRIBUTE_TARGETS).includes(this.target)) {
+            throw new Error(`Invalid target: ${this.target}`);
+        }
+    }
+    
+    toJSON() {
+        this.validate();
+
+        const { id, name, description, material } = this;
+        const result = {id, name, description, material};
+
+        if (this.triggers.length > 0) {
+            result.triggers = this.triggers;
+        }
+        if (this.type && this.type !== ATTRIBUTE_TYPES.ATTRIBUTE) {
+            result["attribute-type"] = this.type;
+        }
+        if (this.target && this.target !== ATTRIBUTE_TARGETS.ANY) {
+            result.target = this.target;
+        }
+        if (isValidRarity(this.rarity) && this.rarity !== RARITY.COMMON) {
+            result.rarity = this.rarity;
+        }
+        
+        return result;
+    }
+}
+
+
+
+module.exports = {
+    Attribute,
+    ATTRIBUTE_TYPES,
+    ATTRIBUTE_TARGETS
+};
