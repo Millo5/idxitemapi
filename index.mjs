@@ -2,10 +2,11 @@ import express from "express";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
-import { ITEM_TYPES, Item, StatsItem, deserialiseItem } from "./public/shared/item.js";
+import { AttributedItem, ITEM_TYPES, Item, StatsItem, deserialiseItem } from "./public/shared/item.js";
 import { Attribute, ATTRIBUTE_TYPE, ATTRIBUTE_TARGET, deserialiseAttribute } from "./public/shared/attribute.js";
 import { TRIGGER } from "./public/shared/triggers.js";
 import { Data } from "./api/data.js";
+import { RARITY } from "./public/shared/rarity.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -72,6 +73,22 @@ try {
 
 // [item, item3].forEach(i => data.addItem(i));
 // [attribute, attribute2, attribute3].forEach(a => data.addAttribute(a));
+// data.save();
+
+
+var anotherItem = new AttributedItem("enchanted-sword")
+    .setName("Enchanted Sword")
+    .setDescription("A sword with magical properties.")
+    .setMaterial("diamond_sword")
+    .setItemType(ITEM_TYPES.MELEE_WEAPON)
+    .setAttributes("sharp", "frostbite")
+    .setEnchantSlots(5)
+    .setRarity(RARITY.EPIC)
+    .setStats({
+        "damage": 10,
+        "attack_speed": 15,
+    })
+// data.addItem(anotherItem);
 // data.save();
 
 /////// ------------------------ ///////

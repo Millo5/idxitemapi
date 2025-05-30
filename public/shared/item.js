@@ -82,7 +82,6 @@ class Item {
          * @default ITEM_TYPES.MATERIAL
          * 
          * @param {string} type - The item type to set. Must be one of the valid item types.
-         * @returns {Item} The current instance for method chaining.
          * @throws {Error} If the item type is not valid.
          * @example
          * item.setItemType(ITEM_TYPES.MELEE_WEAPON);
@@ -97,7 +96,6 @@ class Item {
         /**
          * @default RARITY.COMMON
          * @param {string} rarity - The rarity to set. Must be one of the valid rarities.
-         * @returns {Item} The current instance for method chaining.
          * @throws {Error} If the rarity is not valid.
          * @example
          * item.setRarity(RARITY.RARE);
@@ -225,6 +223,8 @@ class StatsItem extends Item {
         this.validate();
 
         const baseJson = super.toJSON();
+        baseJson.stackable = false;
+
         if (Object.keys(this.stats).length === 0) {
             return baseJson; // No stats to include
         }
@@ -276,6 +276,13 @@ class AttributedItem extends StatsItem {
         this.attributes = [];
         this.enchantSlots = 0;
 
+        this.setAttributes = (...attributes) => {
+            if (!Array.isArray(attributes)) {
+                throw new Error('Attributes must be an array');
+            }
+            this.attributes = attributes;
+            return this;
+        }
         this.setEnchantSlots = (enchantSlots) => { this.enchantSlots = enchantSlots; return this; };
     }
 
@@ -308,6 +315,28 @@ class AttributedItem extends StatsItem {
 
         return baseJson;
     }
+
+
+    toHTML() {
+        const card = super.toHTML();
+
+        if (this.attributes && this.attributes.length > 0) {
+            const attributesDiv = div('row',
+                p('id', 'Attributes:')
+            );
+            this.attributes.forEach(attr => {
+                attributesDiv.append(p('id', attr));
+            });
+            card.append(attributesDiv);
+        }
+
+        if (this.enchantSlots > 0) {
+            card.append(p('id', `Enchant Slots: ${this.enchantSlots}`));
+        }
+
+        return card;
+    }
+
 }
 
 
@@ -358,6 +387,11 @@ function deserialiseItem(data) {
                 item.setStats(data.stats);
             }
             item.attributes = data.attributes;
+
+            if (data.enchantSlots && typeof data.enchantSlots === 'number') {
+                item.setEnchantSlots(data.enchantSlots);
+            }
+
             return item;
         }
 

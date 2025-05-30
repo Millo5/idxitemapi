@@ -56,13 +56,17 @@ document.getElementById("remove").onclick = () => {
 
     const ids = Array.from(selected).map(el => el.getAttribute("data-id"));
     if (confirm(`Are you sure you want to delete ${ids.length} item(s)?`)) {
-        DATABASE.deleteItems(ids).then(() => {
-            selected.forEach(el => el.remove());
-            selectedDisplay.textContent = "";
-        }).catch(err => {
-            console.error("Error deleting items:", err);
-            alert("Failed to delete items. Please try again.");
-        });
+        for (let id of ids) {
+            DATABASE.deleteItem(id).then(() => {
+                const item = document.querySelector(`[data-id="${id}"]`).parentElement.parentElement;
+                if (item) {
+                    item.remove();
+                }
+            }).catch(err => {
+                console.error("Error deleting item:", err);
+                alert("Failed to delete item. Please try again.");
+            });
+        }
     }
 }
 

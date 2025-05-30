@@ -52,7 +52,7 @@ cancelButton.onclick = () => {
 }
 validateButton.onclick = () => {
     try {
-        const item = buildItem();
+        buildItem();
     } catch (error) {
         alert(`Error: ${error.message}`);
     }
@@ -60,7 +60,9 @@ validateButton.onclick = () => {
 saveButton.onclick = () => {
     try {
         const item = buildItem();
-        DATABASE
+        DATABASE.addItem(item);
+        alert("Item saved successfully!");
+        window.location.href = "/"; // Redirect to main page
     } catch (error) {
         alert(`Error: ${error.message}`);
     }
