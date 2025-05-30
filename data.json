@@ -1,19 +1,10 @@
 {
   "items": [
     {
-      "id": "bone",
-      "name": "Bone",
-      "description": "I used to be a femur",
-      "material": "bone"
-    },
-    {
       "id": "wooden-targe",
       "name": "Wooden Targe",
       "description": "A small wooden shield.",
-      "material": "oak_slab",
-      "stats": {
-        "armor": 5
-      }
+      "material": "oak_slab"
     }
   ],
   "attributes": [

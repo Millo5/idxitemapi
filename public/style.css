@@ -3,6 +3,10 @@
     --secondary-color: #cca22e;
     --text-color: #f4f4f4;
     --background-color: #333;
+    --subtle-text-color: #aaa;
+
+    --edit-color: #ff6347; /* Tomato color for edit button */
+    --delete-color: #ff0000; /* Red color for delete button */
 }
 
 body {
@@ -10,7 +14,136 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
 
+.container {
+    display: flex;
+}
+
+.card {
+    border: 1px solid var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card.attribute {
+    border: 1px solid var(--primary-color);
+}
+
+.card > img {
+    max-width: 100px;
+    border-radius: 10px;
+}
+
+.id {
+    font-size: 0.8em;
+    color: var(--subtle-text-color);
+    /* margin-bottom: 10px; */
+    margin: 0;
+}
+
+.row {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selection {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+
+    transition: background-color 0.3s, border-color 0.3s;
+}
+.selection:hover {
+    background-color: var(--secondary-color);
+}
+.selection.selected {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+#selected-display {
+    text-align: right;
+}
+
+.toolsContainer {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    gap: 10px;
+}
+
+.toolsContainer > button {
+    flex: 1;
+}
+
+nav {
+    border-bottom: 1px solid var(--secondary-color);
+    padding: 10px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+nav > h1, nav > h2 {
+    margin: 0;
+}
+
+button {
+    border: 1px solid var(--primary-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+
+    font-weight: bold;
+}
+button:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    transform: scale(1.1);
+}
+
+#add-item {
+    border: 1px solid var(--secondary-color);
+}
+#add-item:hover {
+    background-color: var(--secondary-color);
+}
+
+#add-attr {
+    border: 1px solid var(--primary-color);
+}
+#add-attr:hover {
+    background-color: var(--primary-color);
+}
+
+#edit {
+    border: 1px solid var(--edit-color);
+}
+#edit:hover {
+    background-color: var(--edit-color);
+}
+
+#remove {
+    border: 1px solid var(--delete-color);
+}
+#remove:hover {
+    background-color: var(--delete-color);
+}
