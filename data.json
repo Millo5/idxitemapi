@@ -18,22 +18,29 @@
       "material": "bone"
     },
     {
-      "id": "enchanted-sword",
-      "name": "Enchanted Sword",
-      "description": "A sword with magical properties.",
-      "material": "diamond_sword",
-      "item-type": "melee-weapon",
-      "rarity": "epic",
-      "stackable": false,
-      "stats": {
-        "damage": 10,
-        "attack_speed": 15
-      },
-      "attributes": [
-        "sharp",
-        "frostbite"
-      ],
-      "enchantSlots": 5
+      "id": "rotten-flesh",
+      "name": "Rotten Flesh",
+      "description": "For some reason you feel like you used to eat this.",
+      "material": "rotten_flesh"
+    },
+    {
+      "id": "spider-silk",
+      "name": "Spider Silk",
+      "description": "Technically stronger than steel!",
+      "material": "string"
+    },
+    {
+      "id": "slime",
+      "name": "Slime",
+      "description": "Tastes like a booger. Don't ask how I know that.",
+      "material": "slime_ball"
+    },
+    {
+      "id": "gunpowder",
+      "name": "Gunpowder",
+      "description": "Useful for creation of boom boom.",
+      "material": "gunpowder",
+      "rarity": "uncommon"
     }
   ],
   "attributes": [
@@ -41,8 +48,12 @@
       "id": "sharp",
       "name": "Sharp",
       "description": "Increases the damage of melee weapons.",
-      "material": "wooden_sword",
-      "target": "melee-weapon"
+      "material": "diamond_sword",
+      "attribute-type": "enchantment",
+      "target": "melee-weapon",
+      "stats": {
+        "damage": 2
+      }
     },
     {
       "id": "cursebound",
@@ -64,6 +75,69 @@
       ],
       "attribute-type": "enchantment",
       "target": "weapon"
+    },
+    {
+      "id": "weighted",
+      "name": "Weighted",
+      "description": "Slows you down when worn.",
+      "material": "anvil",
+      "attribute-type": "curse",
+      "target": "armor",
+      "stats": {
+        "movement_speed": -0.1
+      }
+    },
+    {
+      "id": "achilles-heel",
+      "name": "Achilles' Heel",
+      "description": "Increases damage taken by 20%.",
+      "material": "golden_apple",
+      "triggers": [
+        "hurt"
+      ],
+      "attribute-type": "curse",
+      "target": "armor"
+    },
+    {
+      "id": "Heavy",
+      "name": "Heavy",
+      "description": "Slows melee weapon swing speed.",
+      "material": "iron_block",
+      "attribute-type": "curse",
+      "target": "melee-weapon",
+      "stats": {
+        "attack_speed": -0.2
+      }
+    },
+    {
+      "id": "Two Handed",
+      "name": "Two Handed",
+      "description": "Requires both hands to wield, remove offhand items to use.",
+      "material": "lever",
+      "attribute-type": "curse",
+      "target": "melee-weapon"
+    },
+    {
+      "id": "pushback",
+      "name": "Pushback",
+      "description": "Pushes the target back on hit.",
+      "material": "piston",
+      "attribute-type": "enchantment",
+      "target": "melee-weapon",
+      "stats": {
+        "knockback": 1
+      }
+    },
+    {
+      "id": "plated",
+      "name": "Plated",
+      "description": "Increases armor value of armor pieces.",
+      "material": "oak_pressure_plate",
+      "attribute-type": "enchantment",
+      "target": "armor",
+      "stats": {
+        "defense": 2
+      }
     }
   ]
 }

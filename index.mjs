@@ -7,6 +7,7 @@ import { Attribute, ATTRIBUTE_TYPE, ATTRIBUTE_TARGET, deserialiseAttribute } fro
 import { TRIGGER } from "./public/shared/triggers.js";
 import { Data } from "./api/data.js";
 import { RARITY } from "./public/shared/rarity.js";
+import inject from "./api/inject.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -88,6 +89,8 @@ var anotherItem = new AttributedItem("enchanted-sword")
         "damage": 10,
         "attack_speed": 15,
     })
+inject(data);
+
 // data.addItem(anotherItem);
 // data.save();
 
