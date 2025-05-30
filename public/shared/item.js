@@ -73,12 +73,14 @@ class Item {
         this.itemType = ITEM_TYPES.MATERIAL;
         this.rarity = RARITY.COMMON;
         this.color = null;
+        this.levelReq = 0;
 
 
         this.setName = (name) => { this.name = name; return this; };
         this.setDescription = (description) => { this.description = description; return this; };
         this.setMaterial = (material) => { this.material = material; return this; };
         this.setColor = (color) => { this.color = color; return this; };
+        this.setLevelReq = (levelReq) => { this.levelReq = levelReq; return this; };
         
         /**
          * @default ITEM_TYPES.MATERIAL
@@ -141,6 +143,12 @@ class Item {
         if (this.validItemTypes().indexOf(this.itemType) === -1) {
             throw new Error(`Item type ${this.itemType} is not valid for this item`);
         }
+        if (typeof this.rarity !== 'string' || !isValidRarity(this.rarity)) {
+            throw new Error(`Invalid rarity: ${this.rarity}`);
+        }
+        if (typeof this.levelReq !== 'number' || this.levelReq < 0) {
+            throw new Error('Item level requirement must be a non-negative number');
+        }
 
         if (this.color && (typeof this.color !== 'string' || !/^#[0-9A-Fa-f]{6}$/.test(this.color))) {
             throw new Error('Item color must be a valid hex color code');
@@ -166,6 +174,9 @@ class Item {
         if (this.color) {
             json.color = this.color;
         }
+        if (this.levelReq && this.levelReq > 0) {
+            json.levelReq = this.levelReq;
+        }
         return json;
     }
 
@@ -182,7 +193,7 @@ class Item {
 
         card.append(
             div('row',
-                p('id', `${this.rarity}`),
+                p('id', this.levelReq ? `${this.rarity}` : `Lv. ${this.levelReq} ${this.rarity}`),
                 selection
             ),
             html('img', '', { src: url, alt: this.name } ),
