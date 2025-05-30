@@ -25,14 +25,14 @@ export default function inject(data) {
         new Attribute("achilles-heel")
             .setName("Achilles' Heel")
             .setDescription("Increases damage taken by 20%.")
-            .setMaterial("golden_apple")
+            .setMaterial("chainmail_boots")
             .setType(ATTRIBUTE_TYPE.CURSE)
             .setTarget(ATTRIBUTE_TARGET.ARMOR)
             .setTriggers(TRIGGER.HURT)
     );
 
     data.addAttribute(
-        new Attribute("Heavy")
+        new Attribute("heavy")
             .setName("Heavy")
             .setDescription("Slows melee weapon swing speed.")
             .setMaterial("iron_block")
@@ -44,7 +44,7 @@ export default function inject(data) {
     )
 
     data.addAttribute(
-        new Attribute("Two Handed")
+        new Attribute("two-handed")
             .setName("Two Handed")
             .setDescription("Requires both hands to wield, remove offhand items to use.")
             .setMaterial("lever")

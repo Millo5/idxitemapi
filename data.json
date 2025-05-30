@@ -91,7 +91,7 @@
       "id": "achilles-heel",
       "name": "Achilles' Heel",
       "description": "Increases damage taken by 20%.",
-      "material": "golden_apple",
+      "material": "chainmail_boots",
       "triggers": [
         "hurt"
       ],
@@ -99,7 +99,7 @@
       "target": "armor"
     },
     {
-      "id": "Heavy",
+      "id": "heavy",
       "name": "Heavy",
       "description": "Slows melee weapon swing speed.",
       "material": "iron_block",
@@ -108,14 +108,6 @@
       "stats": {
         "attack_speed": -0.2
       }
-    },
-    {
-      "id": "Two Handed",
-      "name": "Two Handed",
-      "description": "Requires both hands to wield, remove offhand items to use.",
-      "material": "lever",
-      "attribute-type": "curse",
-      "target": "melee-weapon"
     },
     {
       "id": "pushback",
@@ -138,6 +130,14 @@
       "stats": {
         "defense": 2
       }
+    },
+    {
+      "id": "two-handed",
+      "name": "Two Handed",
+      "description": "Requires both hands to wield, remove offhand items to use.",
+      "material": "lever",
+      "attribute-type": "curse",
+      "target": "melee-weapon"
     }
   ]
 }

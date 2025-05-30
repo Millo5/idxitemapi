@@ -96,6 +96,16 @@ class Attribute {
         if (!this.id) {
             throw new Error('Attribute must have an ID');
         }
+        if (typeof this.id !== 'string' || this.id.trim() === '') {
+            throw new Error('Item ID must be a non-empty string');
+        }
+        if (this.id.toLowerCase() !== this.id) {
+            throw new Error('Item ID must be lowercase');
+        }
+        if (this.id.includes(' ')) {
+            throw new Error('Item ID cannot contain spaces');
+        }
+        
         if (typeof this.name !== 'string' || this.name.trim() === '') {
             throw new Error('Attribute must have a valid name');
         }
