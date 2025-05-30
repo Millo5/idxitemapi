@@ -13,8 +13,13 @@ import { RARITY, isValidRarity } from "./rarity.js";
 const ITEM_TYPES = {
     MATERIAL: 'material',
 
-    // Instance optionally has `attributes`
+    // Instance must have either `attributes` or `stats`
     TRINKET: 'trinket',
+
+    // Instance must have `attributes`
+    CONSUMABLE: 'consumable',
+
+    // Instance optionally has `attributes`
     OFFHAND: 'offhand',
 
     // Instance optionally has `attributes`
@@ -46,7 +51,6 @@ class Item {
         return [
             ITEM_TYPES.MATERIAL,
 
-            ITEM_TYPES.TRINKET,
             ITEM_TYPES.OFFHAND,
 
             ITEM_TYPES.MELEE_WEAPON,
@@ -179,6 +183,24 @@ class Item {
 
 class StatsItem extends Item {
 
+    validItemTypes() {
+        return [
+            ITEM_TYPES.TRINKET,
+
+            ITEM_TYPES.OFFHAND,
+
+            ITEM_TYPES.MELEE_WEAPON,
+            ITEM_TYPES.RANGED_WEAPON,
+
+            ITEM_TYPES.HELMET,
+            ITEM_TYPES.CHESTPLATE,
+            ITEM_TYPES.LEGGINGS,
+            ITEM_TYPES.BOOTS,
+
+            ITEM_TYPES.UNIQUE
+        ]
+    }
+
     constructor(id) {
         super(id);
         this.stats = {};
@@ -243,13 +265,18 @@ class AttributedItem extends StatsItem {
             ITEM_TYPES.HELMET,
             ITEM_TYPES.CHESTPLATE,
             ITEM_TYPES.LEGGINGS,
-            ITEM_TYPES.BOOTS
+            ITEM_TYPES.BOOTS,
+
+            ITEM_TYPES.CONSUMABLE
         ];
     }
 
     constructor(id) {
         super(id);
         this.attributes = [];
+        this.enchantSlots = 0;
+
+        this.setEnchantSlots = (enchantSlots) => { this.enchantSlots = enchantSlots; return this; };
     }
 
     validate() {
@@ -262,20 +289,24 @@ class AttributedItem extends StatsItem {
                 throw new Error(`Invalid attribute: ${attr}`);
             }
         });
+        if (typeof this.enchantSlots !== 'number' || this.enchantSlots < 0) {
+            throw new Error('Enchant slots can\'t be negative!');
+        }
     }
 
     toJSON() {
         this.validate();
 
         const baseJson = super.toJSON();
-        if (!this.attributes || this.attributes.length === 0) {
-            return baseJson; // No attributes to include
+        if (this.attributes && this.attributes.length > 0) {
+            baseJson.attributes = this.attributes;
         }
 
-        return {
-            ...baseJson,
-            attributes: this.attributes
-        };
+        if (this.enchantSlots > 0) {
+            baseJson.enchantSlots = this.enchantSlots;
+        }
+
+        return baseJson;
     }
 }
 
