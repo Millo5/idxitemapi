@@ -193,7 +193,7 @@ class Item {
 
         card.append(
             div('row',
-                p('id', this.levelReq ? `${this.rarity}` : `Lv. ${this.levelReq} ${this.rarity}`),
+                p('id', (this.levelReq > 0) ? `${this.rarity}` : `Lv. ${this.levelReq} ${this.rarity}`),
                 selection
             ),
             html('img', '', { src: url, alt: this.name } ),
