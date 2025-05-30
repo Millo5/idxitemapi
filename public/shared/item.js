@@ -1,3 +1,4 @@
+import { div, html, p, getItemImageUrl } from "./htmlutil.js";
 import { RARITY, isValidRarity } from "./rarity.js";
 
 
@@ -33,7 +34,7 @@ const ITEM_TYPES = {
 
     
     getAll() {
-        return Object.values(this);
+        return Object.values(this).filter(value => typeof value === 'string' && value !== 'getAll');
     }
 }
 
@@ -117,8 +118,8 @@ class Item {
         if (typeof this.description !== 'string') {
             throw new Error('Item must have a valid description');
         }
-        if (this.material && typeof this.material !== 'string') {
-            throw new Error('Material must be a string');
+        if (typeof this.material !== 'string') {
+            throw new Error('Item must have a valid material');
         }
         if (!ITEM_TYPES.getAll().includes(this.itemType)) {
             throw new Error(`Invalid item type: ${this.itemType}`);
@@ -146,11 +147,37 @@ class Item {
         }
         return json;
     }
+
+    toHTML() {
+        const card = div('card item');
+
+        const url = getItemImageUrl(this.material);
+
+        const selection = div('selection');
+        card.onclick = () => {
+            selection.classList.toggle('selected');
+        }
+        selection.setAttribute('data-id', this.id);
+
+        card.append(
+            div('row',
+                p('id', `${this.rarity}`),
+                selection
+            ),
+            html('img', '', { src: url, alt: this.name } ),
+            html('h3', '', { textContent: this.name } ),
+            html('p', '', { textContent: this.description } ),
+            div('row', 
+                p('id', `${this.id}`),
+                p('id', `${this.itemType}`),
+            )
+        )
+
+        return card;
+    }
 }
 
 class StatsItem extends Item {
-
-
 
     constructor(id) {
         super(id);
@@ -184,6 +211,19 @@ class StatsItem extends Item {
             ...baseJson,
             stats: this.stats
         };
+    }
+
+    toHTML() {
+        const card = super.toHTML();
+
+        // Add stats display
+        const statsDiv = div('stat-container');
+        for (const [key, value] of Object.entries(this.stats)) {
+            statsDiv.append(p('stat', `${key}: ${value}`));
+        }
+        card.append(statsDiv);
+
+        return card;
     }
 }
 
@@ -279,11 +319,23 @@ function deserialiseItem(data) {
         if (data.rarity && isValidRarity(data.rarity)) item.setRarity(data.rarity);
     }
 
+    if (data.stats || data.attributes) {
+        if (data.attributes && Array.isArray(data.attributes)) {
+            const item = new AttributedItem(data.id);
+            setBasicItemProperties(item, data);
+            if (data.stats && typeof data.stats === 'object') {
+                item.setStats(data.stats);
+            }
+            item.attributes = data.attributes;
+            return item;
+        }
 
-    if (data.attributes && Array.isArray(data.attributes)) {
-        const item = new AttributedItem(data.id);
+        const item = new StatsItem(data.id);
         setBasicItemProperties(item, data);
-        item.attributes = data.attributes;
+
+        if (data.stats && typeof data.stats === 'object') {
+            item.setStats(data.stats);
+        }
         return item;
     }
 

@@ -79,6 +79,25 @@ try {
 app.use(express.json());
 app.use(express.static("public"));
 
+
+
+// Page Routes
+app.get("/edit/:id", (req, res) => {
+    const itemId = req.params.id;
+    const item = data.getItem(itemId);
+    if (!item) {
+        const attribute = data.getAttribute(itemId);
+        if (attribute) {
+            return res.sendFile(path.join(__dirname, "public/edit", "edit.html"));
+        }
+
+        return res.status(404).send("Item not found");
+    }
+    
+    res.sendFile(path.join(__dirname, "public/edit", "edit.html"));
+});
+
+
 // Route to get all items
 app.get("/api/items", (req, res) => {
     const items = data.getItems();
@@ -121,6 +140,25 @@ app.delete("/api/items/:id", (req, res) => {
     data.save();
     
     res.status(204).send(); // No content
+});
+app.put("/api/items/:id", (req, res) => {
+    const itemId = req.params.id;
+    const itemData = req.body;
+    if (!itemData || !itemData.id) {
+        return res.status(400).send("Invalid item data");
+    }
+
+    try {
+        const updatedItem = deserialiseItem(itemData);
+        updatedItem.validate();
+
+        data.updateItem(itemId, updatedItem);
+        data.save();
+        
+        res.json(updatedItem.toJSON());
+    } catch (error) {
+        return res.status(400).send(`Error validating item: ${error.message}`);
+    }
 });
 
 
@@ -165,6 +203,25 @@ app.delete("/api/attributes/:id", (req, res) => {
     data.save();
     
     res.status(204).send(); // No content
+});
+app.put("/api/attributes/:id", (req, res) => {
+    const attributeId = req.params.id;
+    const attributeData = req.body;
+    if (!attributeData || !attributeData.id) {
+        return res.status(400).send("Invalid attribute data");
+    }
+
+    try {
+        const updatedAttribute = deserialiseAttribute(attributeData);
+        updatedAttribute.validate();
+
+        data.updateAttribute(attributeId, updatedAttribute);
+        data.save();
+        
+        res.json(updatedAttribute.toJSON());
+    } catch (error) {
+        return res.status(400).send(`Error validating attribute: ${error.message}`);
+    }
 });
 
 

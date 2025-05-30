@@ -1,5 +1,6 @@
 import { RARITY, isValidRarity } from './rarity.js';
 import { TRIGGER, isValidTrigger } from './triggers.js';
+import { div, p, html, getItemImageUrl } from './htmlutil.js';
 
 
 const ATTRIBUTE_TYPE = {
@@ -48,7 +49,7 @@ class Attribute {
         this.triggers = [];
         this.type = ATTRIBUTE_TYPE.ATTRIBUTE;
         this.target = ATTRIBUTE_TARGET.ANY;
-
+        this.stats = {};
 
 
         this.setName = (name) => { this.name = name; return this; };
@@ -82,6 +83,13 @@ class Attribute {
             this.target = target; 
             return this; 
         };
+        this.setStats = (stats) => {
+            if (typeof stats !== 'object' || Array.isArray(stats)) {
+                throw new Error('Stats must be an object');
+            }
+            this.stats = stats;
+            return this; 
+        }
     }
 
     validate() {
@@ -112,6 +120,9 @@ class Attribute {
         if (this.target && !Object.values(ATTRIBUTE_TARGET).includes(this.target)) {
             throw new Error(`Invalid target: ${this.target}`);
         }
+        if (this.stats && (typeof this.stats !== 'object' || Array.isArray(this.stats))) {
+            throw new Error('Stats must be an object');
+        }
     }
     
     toJSON() {
@@ -132,8 +143,41 @@ class Attribute {
         if (isValidRarity(this.rarity) && this.rarity !== RARITY.COMMON) {
             result.rarity = this.rarity;
         }
+        if (Object.keys(this.stats).length > 0) {
+            result.stats = this.stats;
+        }
         
         return result;
+    }
+
+    toHTML() {
+        const card = div('card attribute');
+        const selection = div('selection');
+        card.onclick = () => {
+            selection.classList.toggle('selected');
+        }
+        selection.setAttribute('data-id', this.id);
+
+        const url = getItemImageUrl(this.material);
+        card.append(
+            div('row',
+                p('id', `${this.rarity}`),
+                selection
+            ),
+            html('img', '', { src: url, alt: this.name }),
+            html('h3', '', { textContent: this.name }),
+            html('p', '', { textContent: this.description }),
+            div('row',
+                p('id', `${this.id}`),
+                p('id', `${this.type}`)
+            ),
+            div('row',
+                p('id', `${this.target}`),
+                p('id', `${this.triggers.join(', ')}`)
+            )
+        );
+
+        return card;
     }
 }
 
@@ -155,6 +199,10 @@ function deserialiseAttribute(data) {
     
     if (data.triggers) {
         attribute.setTriggers(...data.triggers);
+    }
+
+    if (data.stats) {
+        attribute.setStats(data.stats);
     }
 
     return attribute;

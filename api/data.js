@@ -67,6 +67,15 @@ class Data {
         return this.items[id];
     }
 
+    updateItem(id, itemData) {
+        if (!id || !this.items[id]) {
+            throw new Error(`Item with id ${id} does not exist`);
+        }
+        const item = deserialiseItem(itemData);
+        item.validate(); // Ensure the item data is valid
+        this.items[id] = item;
+    }
+
     removeItem(id) {
         if (!id || !this.items[id]) {
             throw new Error(`Item with id ${id} does not exist`);
@@ -98,6 +107,15 @@ class Data {
             throw new Error(`Attribute with id ${id} does not exist`);
         }
         delete this.attributes[id];
+    }
+
+    updateAttribute(id, attributeData) {
+        if (!id || !this.attributes[id]) {
+            throw new Error(`Attribute with id ${id} does not exist`);
+        }
+        const attribute = deserialiseAttribute(attributeData);
+        attribute.validate(); // Ensure the attribute data is valid
+        this.attributes[id] = attribute;
     }
 
     
