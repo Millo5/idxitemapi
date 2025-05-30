@@ -72,11 +72,13 @@ class Item {
         this.material = null;
         this.itemType = ITEM_TYPES.MATERIAL;
         this.rarity = RARITY.COMMON;
+        this.color = null;
 
 
         this.setName = (name) => { this.name = name; return this; };
         this.setDescription = (description) => { this.description = description; return this; };
         this.setMaterial = (material) => { this.material = material; return this; };
+        this.setColor = (color) => { this.color = color; return this; };
         
         /**
          * @default ITEM_TYPES.MATERIAL
@@ -139,6 +141,10 @@ class Item {
         if (this.validItemTypes().indexOf(this.itemType) === -1) {
             throw new Error(`Item type ${this.itemType} is not valid for this item`);
         }
+
+        if (this.color && (typeof this.color !== 'string' || !/^#[0-9A-Fa-f]{6}$/.test(this.color))) {
+            throw new Error('Item color must be a valid hex color code');
+        }
     }
 
     toJSON() {
@@ -156,6 +162,9 @@ class Item {
         }
         if (this.rarity && isValidRarity(this.rarity) && this.rarity !== RARITY.COMMON) {
             json.rarity = this.rarity;
+        }
+        if (this.color) {
+            json.color = this.color;
         }
         return json;
     }

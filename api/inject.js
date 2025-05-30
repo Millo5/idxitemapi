@@ -1,4 +1,6 @@
 import { Attribute, ATTRIBUTE_TARGET, ATTRIBUTE_TYPE } from "../public/shared/attribute.js";
+import { AttributedItem, ITEM_TYPES, StatsItem } from "../public/shared/item.js";
+import { RARITY } from "../public/shared/rarity.js";
 import { TRIGGER } from "../public/shared/triggers.js";
 import { Data } from "./data.js";
 
@@ -69,7 +71,7 @@ export default function inject(data) {
         new Attribute("sharp")
             .setName("Sharp")
             .setDescription("Increases the damage of melee weapons.")
-            .setMaterial("diamond_sword")
+            .setMaterial("wooden_sword")
             .setType(ATTRIBUTE_TYPE.ENCHANTMENT)
             .setTarget(ATTRIBUTE_TARGET.MELEE_WEAPON)
             .setStats({
@@ -87,6 +89,46 @@ export default function inject(data) {
                 "defense": 2
             })
     )
+
+
+
+    data.addItem(
+        new StatsItem("wooden-shiv")
+            .setName("Wooden Shiv")
+            .setDescription("A simple wooden blade, not very effective.")
+            .setMaterial("wooden_sword")
+            .setItemType(ITEM_TYPES.MELEE_WEAPON)
+            .setStats({
+                "damage": 1,
+                "attack_speed": 3.1
+            })
+    )
+
+    data.addAttribute(
+        new Attribute("recursion")
+            .setName("Recursion")
+            .setDescription("A strange enchantment that allows you to duplicate actions.")
+            .setMaterial("ender_pearl")
+            .setRarity(RARITY.MYTHIC)
+            .setType(ATTRIBUTE_TYPE.ENCHANTMENT)
+            .setTarget(ATTRIBUTE_TARGET.ARMOR)
+    )
+
+    data.addItem(
+        new AttributedItem("illusioners-hood")
+            .setName("Illusioner's Hood")
+            .setDescription("A hood worn by illusioners, it has a strange aura.")
+            .setMaterial("leather_helmet")
+            .setColor("#00a0a0")
+            .setItemType(ITEM_TYPES.HELMET)
+            .setRarity(RARITY.MYTHIC)
+            .setAttributes("recursion")
+            .setEnchantSlots(1)
+            .setStats({
+                defense: 8,
+            })
+    )
+    
 
     data.save();
 }

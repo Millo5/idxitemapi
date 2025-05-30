@@ -41,6 +41,35 @@
       "description": "Useful for creation of boom boom.",
       "material": "gunpowder",
       "rarity": "uncommon"
+    },
+    {
+      "id": "wooden-shiv",
+      "name": "Wooden Shiv",
+      "description": "A simple wooden blade, not very effective.",
+      "material": "wooden_sword",
+      "item-type": "melee-weapon",
+      "stackable": false,
+      "stats": {
+        "damage": 1,
+        "attack_speed": 3.1
+      }
+    },
+    {
+      "id": "illusioners-hood",
+      "name": "Illusioner's Hood",
+      "description": "A hood worn by illusioners, it has a strange aura.",
+      "material": "leather_helmet",
+      "item-type": "helmet",
+      "rarity": "mythic",
+      "color": "#00a0a0",
+      "stackable": false,
+      "stats": {
+        "defense": 8
+      },
+      "attributes": [
+        "recursion"
+      ],
+      "enchantSlots": 1
     }
   ],
   "attributes": [
@@ -48,7 +77,7 @@
       "id": "sharp",
       "name": "Sharp",
       "description": "Increases the damage of melee weapons.",
-      "material": "diamond_sword",
+      "material": "wooden_sword",
       "attribute-type": "enchantment",
       "target": "melee-weapon",
       "stats": {
@@ -138,6 +167,15 @@
       "material": "lever",
       "attribute-type": "curse",
       "target": "melee-weapon"
+    },
+    {
+      "id": "recursion",
+      "name": "Recursion",
+      "description": "A strange enchantment that allows you to duplicate actions.",
+      "material": "ender_pearl",
+      "attribute-type": "enchantment",
+      "target": "armor",
+      "rarity": "mythic"
     }
   ]
 }
