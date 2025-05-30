@@ -40,14 +40,22 @@ const ITEM_TYPES = {
 
 class Item {
 
+
     validItemTypes() {
         return [
             ITEM_TYPES.MATERIAL,
+
+            ITEM_TYPES.TRINKET,
+            ITEM_TYPES.OFFHAND,
+
             ITEM_TYPES.MELEE_WEAPON,
+            ITEM_TYPES.RANGED_WEAPON,
+
             ITEM_TYPES.HELMET,
             ITEM_TYPES.CHESTPLATE,
             ITEM_TYPES.LEGGINGS,
             ITEM_TYPES.BOOTS,
+
             ITEM_TYPES.UNIQUE
         ]
     }
@@ -141,6 +149,9 @@ class Item {
 }
 
 class StatsItem extends Item {
+
+
+
     constructor(id) {
         super(id);
         this.stats = {};

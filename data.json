@@ -4,7 +4,17 @@
       "id": "wooden-targe",
       "name": "Wooden Targe",
       "description": "A small wooden shield.",
-      "material": "oak_slab"
+      "material": "oak_slab",
+      "item-type": "offhand",
+      "stats": {
+        "armor": 5
+      }
+    },
+    {
+      "id": "bone",
+      "name": "Bone",
+      "description": "I used to be a femur",
+      "material": "bone"
     }
   ],
   "attributes": [

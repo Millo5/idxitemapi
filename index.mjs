@@ -2,7 +2,7 @@ import express from "express";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
-import { Item, StatsItem, deserialiseItem } from "./public/shared/item.js";
+import { ITEM_TYPES, Item, StatsItem, deserialiseItem } from "./public/shared/item.js";
 import { Attribute, ATTRIBUTE_TYPE, ATTRIBUTE_TARGET, deserialiseAttribute } from "./public/shared/attribute.js";
 import { TRIGGER } from "./public/shared/triggers.js";
 import { Data } from "./api/data.js";
@@ -38,6 +38,7 @@ try {
 //     .setName("Wooden Targe")
 //     .setDescription("A small wooden shield.")
 //     .setMaterial("oak_slab")
+//     .setItemType(ITEM_TYPES.OFFHAND)
 //     .setStats({
 //         "armor": 5,
 //     })
