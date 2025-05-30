@@ -203,7 +203,8 @@ button:hover {
     padding: 0;
 }
 
-.container {
+
+.options-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -219,34 +220,13 @@ button:hover {
     background-color: var(--background-color);
     color: var(--text-color);
 }
-.container > p {
-    margin: 0;
-}
-
-#options-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid var(--secondary-color);
-    gap: 5px;
-
-    padding: 20px;
-    
-    margin: 20px;
-    margin-bottom: 0;
-    border: 1px solid var(--secondary-color);
-    border-radius: 5px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-#options-container > label {
+.options-container > label {
     min-width: 500px;
     display: flex;
     justify-content: space-between;
     gap: 20px;
 }
-#options-container > label > p {
+.options-container > label > p {
     margin: 0;
 }
 

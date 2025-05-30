@@ -2,6 +2,7 @@ import { button, div, p } from "../shared/htmlutil.js";
 import { AttributedItem, deserialiseItem, EnchantmentItem, Item, ITEM_TYPES, StatsItem } from "../shared/item.js";
 import { RARITY } from "../shared/rarity.js";
 import { Option, SelectOption, TextOption } from "./options.js";
+import DATABASE from "../src/database.js";
 
 const validateButton = document.getElementById("validate");
 const saveButton = document.getElementById("save");
@@ -52,6 +53,14 @@ cancelButton.onclick = () => {
 validateButton.onclick = () => {
     try {
         const item = buildItem();
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+}
+saveButton.onclick = () => {
+    try {
+        const item = buildItem();
+        DATABASE
     } catch (error) {
         alert(`Error: ${error.message}`);
     }
