@@ -136,7 +136,7 @@ export default function inject(data) {
             .setMaterial("lead")
             .setType(ATTRIBUTE_TYPE.ATTRIBUTE)
             .setTarget(ATTRIBUTE_TARGET.CONSUMABLE)
-            .setTriggers(TRIGGER.CONSUME)
+            .setTriggers(TRIGGER.USE)
     )
 
     data.addItem(

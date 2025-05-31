@@ -194,7 +194,7 @@
       "description": "Allows you to grapple onto surfaces, useful for climbing or swinging across gaps.",
       "material": "lead",
       "triggers": [
-        "consume"
+        "use"
       ],
       "target": "consumable"
     }

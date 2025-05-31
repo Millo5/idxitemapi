@@ -1,13 +1,14 @@
 
 const TRIGGER = {
-    HIT: 'hit',
-    HURT: 'hurt',
-    LEFTCLICK: 'leftclick',
-    RIGHTCLICK: 'rightclick',
+    HIT: 'hit', // when the player hits something
+    HURT: 'hurt',   // when the player is hurt
+    USE: 'use', // when the player uses an item (varies by item type)
+    SWING: 'swing', // when the player swings a melee weapon
+
     PASSIVE: 'passive',
     PASSIVESLOW: 'passive-slow',
     DROP: 'drop',
-    CONSUME: 'consume',
+    EAT: 'eat',
 
     getAll() {
         return Object.values(this).filter(value => typeof value === 'string');
