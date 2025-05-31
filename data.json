@@ -70,6 +70,17 @@
         "recursion"
       ],
       "enchantSlots": 1
+    },
+    {
+      "id": "rope",
+      "name": "Rope",
+      "description": "A long piece of rope, useful for climbing.",
+      "material": "lead",
+      "item-type": "consumable",
+      "stackable": false,
+      "attributes": [
+        "grapple"
+      ]
     }
   ],
   "attributes": [
@@ -176,6 +187,16 @@
       "attribute-type": "enchantment",
       "target": "armor",
       "rarity": "mythic"
+    },
+    {
+      "id": "grapple",
+      "name": "Grapple",
+      "description": "Allows you to grapple onto surfaces, useful for climbing or swinging across gaps.",
+      "material": "lead",
+      "triggers": [
+        "consume"
+      ],
+      "target": "consumable"
     }
   ]
 }

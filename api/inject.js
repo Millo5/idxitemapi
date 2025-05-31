@@ -128,6 +128,26 @@ export default function inject(data) {
                 defense: 8,
             })
     )
+
+    data.addAttribute(
+        new Attribute("grapple")
+            .setName("Grapple")
+            .setDescription("Allows you to grapple onto surfaces, useful for climbing or swinging across gaps.")
+            .setMaterial("lead")
+            .setType(ATTRIBUTE_TYPE.ATTRIBUTE)
+            .setTarget(ATTRIBUTE_TARGET.CONSUMABLE)
+            .setTriggers(TRIGGER.CONSUME)
+    )
+
+    data.addItem(
+        new AttributedItem("rope")
+            .setName("Rope")
+            .setDescription("A long piece of rope, useful for climbing.")
+            .setMaterial("lead")
+            .setItemType(ITEM_TYPES.CONSUMABLE)
+            .setRarity(RARITY.COMMON)
+            .setAttributes("grapple")
+    )
     
 
     data.save();

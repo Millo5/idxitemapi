@@ -7,6 +7,7 @@ const TRIGGER = {
     PASSIVE: 'passive',
     PASSIVESLOW: 'passive-slow',
     DROP: 'drop',
+    CONSUME: 'consume',
 
     getAll() {
         return Object.values(this).filter(value => typeof value === 'string');
