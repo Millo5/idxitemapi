@@ -83,11 +83,32 @@ class Attribute {
             this.target = target; 
             return this; 
         };
-        this.setStats = (stats) => {
-            if (typeof stats !== 'object' || Array.isArray(stats)) {
-                throw new Error('Stats must be an object');
+        this.setStats = (...stats) => {
+            if (!stats || stats.length === 0) {
+                throw new Error(id + ' Stats must be an array of [string, number] pairs or an object');
             }
-            this.stats = stats;
+            
+            if (typeof stats[0] === 'object' && !Array.isArray(stats[0])) {
+                this.stats = stats[0];
+                return this;
+            }
+            
+            // array of [string, number] pairs
+            if (!Array.isArray(stats) || stats.length % 2 !== 0) {
+                throw new Error(id + ' Stats must be an array of [string, number] pairs got: ' + JSON.stringify(stats));
+            }
+            this.stats = {};
+
+            for (let i = 0; i < stats.length; i += 2) {
+                const key = stats[i];
+                const value = stats[i + 1];
+
+                if (typeof key !== 'string' || typeof value !== 'number') {
+                    throw new Error('Stats must be an array of [string, number] pairs');
+                }
+                this.stats[key] = value;
+            }
+            
             return this; 
         }
     }

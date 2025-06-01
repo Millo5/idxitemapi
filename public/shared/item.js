@@ -1,5 +1,6 @@
 import { div, html, p, getItemImageUrl } from "./htmlutil.js";
 import { RARITY, isValidRarity } from "./rarity.js";
+import { STAT } from "./stat.js";
 
 
 /**
@@ -233,12 +234,33 @@ class StatsItem extends Item {
         super(id);
         this.stats = {};
 
-        this.setStats = (stats) => {
-            if (typeof stats !== 'object' || Array.isArray(stats)) {
-                throw new Error('Stats must be an object');
+        this.setStats = (...stats) => {
+            if (!stats || stats.length === 0) {
+                throw new Error(id + ' Stats must be an array of [string, number] pairs or an object');
             }
-            this.stats = stats;
-            return this;
+            
+            if (typeof stats[0] === 'object' && !Array.isArray(stats[0])) {
+                this.stats = stats[0];
+                return this;
+            }
+            
+            // array of [string, number] pairs
+            if (!Array.isArray(stats) || stats.length % 2 !== 0) {
+                throw new Error(id + ' Stats must be an array of [string, number] pairs got: ' + JSON.stringify(stats));
+            }
+            this.stats = {};
+
+            for (let i = 0; i < stats.length; i += 2) {
+                const key = stats[i];
+                const value = stats[i + 1];
+
+                if (typeof key !== 'string' || typeof value !== 'number') {
+                    throw new Error('Stats must be an array of [string, number] pairs');
+                }
+                this.stats[key] = value;
+            }
+            
+            return this; 
         }
     }
 
@@ -246,6 +268,16 @@ class StatsItem extends Item {
         super.validate();
         if (typeof this.stats !== 'object' || Array.isArray(this.stats)) {
             throw new Error('Stats must be an object');
+        }
+        if (this.stats) {
+            for (const [key, value] of Object.entries(this.stats)) {
+                if (typeof key !== 'string' || !STAT.getAll().includes(key)) {
+                    throw new Error(`Invalid stat key: ${key}`);
+                }
+                if (typeof value !== 'number') {
+                    throw new Error(`Invalid stat value for ${key}: ${value}`);
+                }
+            }
         }
     }
 

@@ -8,12 +8,13 @@ class Data {
         this.items = {};
         this.attributes = {};
         this.datafile = filename
+        this.loaded = false;
     }
 
     load() {
 
         if (!fs.existsSync(this.datafile)) {
-            throw new Error(`Data file ${this.datafile} does not exist`);
+            fs.writeFileSync(this.datafile, JSON.stringify({ items: [], attributes: [] }, null, 2), 'utf8');
         }
         const fileContent = fs.readFileSync(this.datafile, 'utf8');
         let data;
@@ -33,12 +34,31 @@ class Data {
             this.addItem(item);
         });
 
-        console.log(data.attributes);
-
         data.attributes.forEach(attrData => {
             const attribute = deserialiseAttribute(attrData);
             this.addAttribute(attribute);
         });
+
+        console.log("\nValidating data...")
+        // Validate
+        Object.values(this.items).forEach(item => {
+            try {
+                item.validate(); // Ensure each item is valid
+            } catch (error) {
+                console.error(`Invalid item data for ID ${item.id}: ${error.message}`);
+            }
+        });
+
+        Object.values(this.attributes).forEach(attr => {
+            try {
+                attr.validate(); // Ensure each attribute is valid
+            } catch (error) {
+                console.error(`Invalid attribute data for ID ${attr.id}: ${error.message}`);
+            }
+        });
+        console.log("Data loaded and validated.\n");
+
+        this.loaded = true;
     }
 
     save() {

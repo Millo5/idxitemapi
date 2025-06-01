@@ -24,10 +24,12 @@ try {
     data.load();
 } catch (error) {
     console.error("Error loading data:", error.message);
-    console.error("Creating new data file...");
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data.toJSON(), null, 2));
 }
 
+if (!data.loaded) {
+    console.error("Data not loaded. Exiting...");
+    process.exit(1);
+}
 /////// ------------------------ ///////
 
 // var item = new Item("bone")

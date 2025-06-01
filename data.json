@@ -8,7 +8,7 @@
       "item-type": "offhand",
       "stackable": false,
       "stats": {
-        "armor": 5
+        "defense": 5
       }
     },
     {
@@ -51,7 +51,7 @@
       "stackable": false,
       "stats": {
         "damage": 1,
-        "attack_speed": 3.1
+        "attack-speed": 3.1
       }
     },
     {
@@ -64,7 +64,8 @@
       "color": "#00a0a0",
       "stackable": false,
       "stats": {
-        "defense": 8
+        "defense": 8,
+        "health": 4
       },
       "attributes": [
         "recursion"
@@ -92,7 +93,7 @@
       "attribute-type": "enchantment",
       "target": "melee-weapon",
       "stats": {
-        "damage": 2
+        "damage": 1.5
       }
     },
     {
@@ -124,7 +125,7 @@
       "attribute-type": "curse",
       "target": "armor",
       "stats": {
-        "movement_speed": -0.1
+        "move-speed": -0.2
       }
     },
     {
@@ -146,7 +147,7 @@
       "attribute-type": "curse",
       "target": "melee-weapon",
       "stats": {
-        "attack_speed": -0.2
+        "attack-speed": -0.2
       }
     },
     {

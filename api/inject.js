@@ -1,6 +1,7 @@
 import { Attribute, ATTRIBUTE_TARGET, ATTRIBUTE_TYPE } from "../public/shared/attribute.js";
 import { AttributedItem, ITEM_TYPES, StatsItem } from "../public/shared/item.js";
 import { RARITY } from "../public/shared/rarity.js";
+import { STAT } from "../public/shared/stat.js";
 import { TRIGGER } from "../public/shared/triggers.js";
 import { Data } from "./data.js";
 
@@ -18,9 +19,9 @@ export default function inject(data) {
             .setMaterial("anvil")
             .setType(ATTRIBUTE_TYPE.CURSE)
             .setTarget(ATTRIBUTE_TARGET.ARMOR)
-            .setStats({
-                "movement_speed": -0.1
-            })
+            .setStats(
+                STAT.MOVE_SPEED, -0.2
+            )
     )
 
     data.addAttribute(
@@ -40,9 +41,9 @@ export default function inject(data) {
             .setMaterial("iron_block")
             .setType(ATTRIBUTE_TYPE.CURSE)
             .setTarget(ATTRIBUTE_TARGET.MELEE_WEAPON)
-            .setStats({
-                "attack_speed": -0.2
-            })
+            .setStats(
+                STAT.ATTACK_SPEED, -0.2
+            )
     )
 
     data.addAttribute(
@@ -63,9 +64,9 @@ export default function inject(data) {
             .setMaterial("piston")
             .setType(ATTRIBUTE_TYPE.ENCHANTMENT)
             .setTarget(ATTRIBUTE_TARGET.MELEE_WEAPON)
-            .setStats({
-                "knockback": 1
-            })
+            .setStats(
+                STAT.KNOCKBACK, 1
+            )
     )
     data.addAttribute(
         new Attribute("sharp")
@@ -74,9 +75,9 @@ export default function inject(data) {
             .setMaterial("wooden_sword")
             .setType(ATTRIBUTE_TYPE.ENCHANTMENT)
             .setTarget(ATTRIBUTE_TARGET.MELEE_WEAPON)
-            .setStats({
-                "damage": 2
-            })
+            .setStats(
+                STAT.DAMAGE, 1.5
+            )
     );
     data.addAttribute(
         new Attribute("plated")
@@ -85,9 +86,9 @@ export default function inject(data) {
             .setMaterial("oak_pressure_plate")
             .setType(ATTRIBUTE_TYPE.ENCHANTMENT)
             .setTarget(ATTRIBUTE_TARGET.ARMOR)
-            .setStats({
-                "defense": 2
-            })
+            .setStats(
+                STAT.DEFENSE, 2
+            )
     )
 
 
@@ -98,10 +99,10 @@ export default function inject(data) {
             .setDescription("A simple wooden blade, not very effective.")
             .setMaterial("wooden_sword")
             .setItemType(ITEM_TYPES.MELEE_WEAPON)
-            .setStats({
-                "damage": 1,
-                "attack_speed": 3.1
-            })
+            .setStats(
+                STAT.DAMAGE, 1,
+                STAT.ATTACK_SPEED, 3.1
+            )
     )
 
     data.addAttribute(
@@ -124,9 +125,10 @@ export default function inject(data) {
             .setRarity(RARITY.MYTHIC)
             .setAttributes("recursion")
             .setEnchantSlots(1)
-            .setStats({
-                defense: 8,
-            })
+            .setStats(
+                STAT.DEFENSE, 8,
+                STAT.HEALTH, 4
+            )
     )
 
     data.addAttribute(
