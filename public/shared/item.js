@@ -41,6 +41,13 @@ const ITEM_TYPES = {
     
     getAll() {
         return Object.values(this).filter(value => typeof value === 'string' && value !== 'getAll');
+    },
+    validate(item, type) {
+        if (type === ITEM_TYPES.MELEE_WEAPON || type === ITEM_TYPES.RANGED_WEAPON) {
+            if (item.stats && item.stats[STAT.ATTACK_SPEED]) {
+                throw new Error(`Item of type ${type} cannot have attack-speed as a stat. Use weapon-attack-speed instead.`);
+            }
+        }
     }
 }
 
@@ -154,6 +161,7 @@ class Item {
         if (this.color && (typeof this.color !== 'string' || !/^#[0-9A-Fa-f]{6}$/.test(this.color))) {
             throw new Error('Item color must be a valid hex color code');
         }
+        ITEM_TYPES.validate(this, this.itemType);
     }
 
     toJSON() {
@@ -255,7 +263,7 @@ class StatsItem extends Item {
                 const value = stats[i + 1];
 
                 if (typeof key !== 'string' || typeof value !== 'number') {
-                    throw new Error('Stats must be an array of [string, number] pairs');
+                    throw new Error('Stats must be an array of [string, number] pairs, got: ' + JSON.stringify(stats));
                 }
                 this.stats[key] = value;
             }
@@ -282,7 +290,11 @@ class StatsItem extends Item {
     }
 
     toJSON() {
-        this.validate();
+        try {
+            this.validate();
+        } catch (error) {
+            throw new Error(`Invalid item data for ID ${this.id}: ${error.message}`);
+        }
 
         const baseJson = super.toJSON();
         baseJson.stackable = false;

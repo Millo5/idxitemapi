@@ -104,7 +104,7 @@ class Attribute {
                 const value = stats[i + 1];
 
                 if (typeof key !== 'string' || typeof value !== 'number') {
-                    throw new Error('Stats must be an array of [string, number] pairs');
+                    throw new Error('Stats must be an array of [string, number] pairs, got: ' + JSON.stringify(stats));
                 }
                 this.stats[key] = value;
             }

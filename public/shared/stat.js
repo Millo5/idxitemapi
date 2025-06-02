@@ -5,13 +5,15 @@ const STAT = {
     EVASION: 'evasion', // 0.9 * (1 - exp(-0.05 * evasion))
 
     DAMAGE: 'damage',               // Damage dealt per hit, flat.
-    ATTACK_SPEED: 'attack-speed',   // Attacks per second, multiplier. (%)
+    ATTACK_SPEED: 'attack-speed',   // Attack speed multiplier, default: 100 (%)
     CRIT_CHANCE: 'crit-chance',     // Chance to deal critical damage, default: 10 (%)
     CRIT_DAMAGE: 'crit-damage',     // Critical damage multiplier on top of normal damage, default: 100.0 (%)
     KNOCKBACK: 'knockback',         // Default: 100 (%)
 
     MOVE_SPEED: 'move-speed',   // Default: 100
     LUCK: 'luck',               // Reroll chance for loot, default: 0.0 (0-1.0). Above 1 additional rolls are made.
+
+    WEAPON_ATTACK_SPEED: 'weapon-attack-speed', // Attacks per second of a weapon, flat.
 
     getAll() {
         return Object.values(this).filter(value => typeof value === 'string');

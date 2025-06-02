@@ -46,6 +46,8 @@ export default function inject(data) {
             .setTriggers(TRIGGER.HIT)
             .setStats(
                 STAT.DAMAGE, 5,
+                STAT.WEAPON_ATTACK_SPEED, 1.5,
+
                 STAT.CRIT_CHANCE, 20
             )
             .setRarity(RARITY.LEGENDARY)
@@ -64,7 +66,8 @@ export default function inject(data) {
             .setLevelReq(2)
             .setStats(
                 STAT.DAMAGE, 8,
-                STAT.ATTACK_SPEED, 1.6,
+                STAT.WEAPON_ATTACK_SPEED, 1.6,
+                
                 STAT.DEFENSE, 2,
                 STAT.HEALTH, 2,
                 STAT.MOVE_SPEED, 40,
@@ -178,7 +181,7 @@ export default function inject(data) {
             .setItemType(ITEM_TYPES.MELEE_WEAPON)
             .setStats(
                 STAT.DAMAGE, 1,
-                STAT.ATTACK_SPEED, 3.1
+                STAT.WEAPON_ATTACK_SPEED, 3.1
             )
     )
 

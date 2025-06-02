@@ -51,7 +51,7 @@
       "stackable": false,
       "stats": {
         "damage": 1,
-        "attack-speed": 3.1
+        "weapon-attack-speed": 3.1
       }
     },
     {
@@ -94,7 +94,7 @@
       "stackable": false,
       "stats": {
         "damage": 8,
-        "attack-speed": 1.6,
+        "weapon-attack-speed": 1.6,
         "defense": 2,
         "health": 2,
         "move-speed": 40,
@@ -261,6 +261,7 @@
       "rarity": "legendary",
       "stats": {
         "damage": 5,
+        "weapon-attack-speed": 1.5,
         "crit-chance": 20
       }
     },
