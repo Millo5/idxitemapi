@@ -82,6 +82,33 @@
       "attributes": [
         "grapple"
       ]
+    },
+    {
+      "id": "clydes-blade",
+      "name": "Clyde's Blade",
+      "description": "A blade that seems to have a mind of its own, it can be quite dangerous.",
+      "material": "armor_stand",
+      "item-type": "melee-weapon",
+      "rarity": "developer",
+      "levelReq": 2,
+      "stackable": false,
+      "stats": {
+        "damage": 8,
+        "attack-speed": 1.6,
+        "defense": 2,
+        "health": 2,
+        "move-speed": 40,
+        "crit-chance": 40,
+        "crit-damage": 50,
+        "knockback": -40,
+        "luck": 0.2
+      },
+      "attributes": [
+        "sharp",
+        "sword-slash",
+        "two-handed"
+      ],
+      "enchantSlots": 3
     }
   ],
   "attributes": [
@@ -198,6 +225,51 @@
         "use"
       ],
       "target": "consumable"
+    },
+    {
+      "id": "power-pallet",
+      "name": "Power Pallet",
+      "description": "A powerful item that boosts your stats significantly.",
+      "material": "diamond_block",
+      "triggers": [
+        "hurt"
+      ],
+      "target": "offhand",
+      "rarity": "developer",
+      "stats": {
+        "damage": 10,
+        "attack-speed": 2,
+        "defense": 5,
+        "health": 20,
+        "move-speed": 100,
+        "crit-chance": 100,
+        "crit-damage": 200,
+        "knockback": 50,
+        "luck": 1
+      }
+    },
+    {
+      "id": "lightning-powered",
+      "name": "Lightning Powered",
+      "description": "A powerful enchantment that strikes lightning on hit.",
+      "material": "lightning_rod",
+      "triggers": [
+        "hit"
+      ],
+      "attribute-type": "enchantment",
+      "target": "melee-weapon",
+      "rarity": "legendary",
+      "stats": {
+        "damage": 5,
+        "crit-chance": 20
+      }
+    },
+    {
+      "id": "sword-slash",
+      "name": "Sword Slash",
+      "description": "A three hit swing combo.",
+      "material": "iron_sword",
+      "target": "melee-weapon"
     }
   ]
 }
