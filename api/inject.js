@@ -12,6 +12,83 @@ import { Data } from "./data.js";
  */
 export default function inject(data) {
 
+    /// Test items and attributes
+
+    data.addAttribute(
+        new Attribute("power-pallet")
+            .setName("Power Pallet")
+            .setDescription("A powerful item that boosts your stats significantly.")
+            .setMaterial("diamond_block")
+            .setType(ATTRIBUTE_TYPE.ATTRIBUTE)
+            .setTarget(ATTRIBUTE_TARGET.OFFHAND)
+            .setTriggers(TRIGGER.HURT)
+            .setStats(
+                STAT.DAMAGE, 10,
+                STAT.ATTACK_SPEED, 2,
+                STAT.DEFENSE, 5,
+                STAT.HEALTH, 20,
+                STAT.MOVE_SPEED, 100,
+                STAT.CRIT_CHANCE, 100,
+                STAT.CRIT_DAMAGE, 200,
+                STAT.KNOCKBACK, 50,
+                STAT.LUCK, 1
+            )
+            .setRarity(RARITY.DEVELOPER)
+    )
+
+    data.addAttribute(
+        new Attribute("lightning-powered")
+            .setName("Lightning Powered")
+            .setDescription("A powerful enchantment that strikes lightning on hit.")
+            .setMaterial("lightning_rod")
+            .setType(ATTRIBUTE_TYPE.ENCHANTMENT)
+            .setTarget(ATTRIBUTE_TARGET.MELEE_WEAPON)
+            .setTriggers(TRIGGER.HIT)
+            .setStats(
+                STAT.DAMAGE, 5,
+                STAT.CRIT_CHANCE, 20
+            )
+            .setRarity(RARITY.LEGENDARY)
+    )
+
+
+    data.addItem(
+        new AttributedItem("clydes-blade")
+            .setName("Clyde's Blade")
+            .setDescription("A blade that seems to have a mind of its own, it can be quite dangerous.")
+            .setMaterial("armor_stand")
+            .setItemType(ITEM_TYPES.MELEE_WEAPON)
+            .setRarity(RARITY.DEVELOPER)
+            .setAttributes("sharp", "sword-slash", "two-handed")
+            .setEnchantSlots(3)
+            .setLevelReq(2)
+            .setStats(
+                STAT.DAMAGE, 8,
+                STAT.ATTACK_SPEED, 1.6,
+                STAT.DEFENSE, 2,
+                STAT.HEALTH, 2,
+                STAT.MOVE_SPEED, 40,
+                STAT.CRIT_CHANCE, 40,
+                STAT.CRIT_DAMAGE, 50,
+                STAT.KNOCKBACK, -40,
+                STAT.LUCK, 0.2
+            )
+    );
+
+
+
+    // Items
+
+    data.addAttribute(
+        new Attribute("sword-slash")
+            .setName("Sword Slash")
+            .setDescription("A three hit swing combo.")
+            .setMaterial("iron_sword")
+            .setType(ATTRIBUTE_TYPE.ATTRIBUTE)
+            .setTarget(ATTRIBUTE_TARGET.MELEE_WEAPON)
+    )
+
+
     data.addAttribute(
         new Attribute("weighted")
             .setName("Weighted")
@@ -151,6 +228,7 @@ export default function inject(data) {
             .setAttributes("grapple")
     )
     
+
 
     data.save();
 }

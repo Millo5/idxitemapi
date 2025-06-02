@@ -7,6 +7,7 @@ const RARITY = {
     LEGENDARY: 'legendary',
     MYTHIC: 'mythic',
     KIT: 'kit',
+    DEVELOPER: 'developer',
 
     getAll() {
         return Object.values(this).filter(value => typeof value === 'string');
