@@ -157,7 +157,11 @@ class Attribute {
     }
     
     toJSON() {
-        this.validate();
+        try {
+            this.validate();
+        } catch (error) {
+            throw new Error(`Invalid attribute data for ID ${this.id}: ${error.message}`);
+        }
 
         const { id, name, description, material } = this;
         const result = {id, name, description, material};

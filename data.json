@@ -109,6 +109,23 @@
         "two-handed"
       ],
       "enchantSlots": 3
+    },
+    {
+      "id": "madam-legs",
+      "name": "Madam 8 Legs",
+      "description": "A pair of enchanted legs that allow you to move faster.",
+      "material": "diamond_leggings",
+      "item-type": "leggings",
+      "rarity": "epic",
+      "stackable": false,
+      "stats": {
+        "defense": 10,
+        "health": 5,
+        "move-speed": 25,
+        "crit-chance": 25,
+        "attack-speed": 25
+      },
+      "enchantSlots": 4
     }
   ],
   "attributes": [

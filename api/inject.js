@@ -53,6 +53,23 @@ export default function inject(data) {
             .setRarity(RARITY.LEGENDARY)
     )
 
+    data.addItem(
+        new AttributedItem("madam-legs")
+            .setName("Madam 8 Legs")
+            .setDescription("A pair of enchanted legs that allow you to move faster.")
+            .setMaterial("diamond_leggings")
+            .setItemType(ITEM_TYPES.LEGGINGS)
+            .setRarity(RARITY.EPIC)
+            .setEnchantSlots(4)
+            .setStats(
+                STAT.DEFENSE, 10,
+                STAT.HEALTH, 5,
+                STAT.MOVE_SPEED, 25,
+                STAT.CRIT_CHANCE, 25,
+                STAT.ATTACK_SPEED, 25
+            )
+    )
+
 
     data.addItem(
         new AttributedItem("clydes-blade")
