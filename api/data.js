@@ -87,11 +87,7 @@ class Data {
         return this.items[id];
     }
 
-    updateItem(id, itemData) {
-        if (!id || !this.items[id]) {
-            throw new Error(`Item with id ${id} does not exist`);
-        }
-        const item = deserialiseItem(itemData);
+    updateItem(id, item) {
         item.validate(); // Ensure the item data is valid
         this.items[id] = item;
     }

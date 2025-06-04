@@ -82,6 +82,7 @@ class Item {
         this.rarity = RARITY.COMMON;
         this.color = null;
         this.levelReq = 0;
+        this.modeldata = null;
 
 
         this.setName = (name) => { this.name = name; return this; };
@@ -89,6 +90,7 @@ class Item {
         this.setMaterial = (material) => { this.material = material; return this; };
         this.setColor = (color) => { this.color = color; return this; };
         this.setLevelReq = (levelReq) => { this.levelReq = levelReq; return this; };
+        this.setModelData = (modeldata) => { this.modeldata = modeldata; return this; };
         
         /**
          * @default ITEM_TYPES.MATERIAL
@@ -157,6 +159,9 @@ class Item {
         if (typeof this.levelReq !== 'number' || this.levelReq < 0) {
             throw new Error('Item level requirement must be a non-negative number');
         }
+        if (this.modeldata && (typeof this.modeldata !== 'number' || this.modeldata < 0)) {
+            throw new Error('Item model data must be a non-negative number');
+        }
 
         if (this.color && (typeof this.color !== 'string' || !/^#[0-9A-Fa-f]{6}$/.test(this.color))) {
             throw new Error('Item color must be a valid hex color code');
@@ -186,6 +191,9 @@ class Item {
         if (this.levelReq && this.levelReq > 0) {
             json.levelReq = this.levelReq;
         }
+        if (this.modeldata && this.modeldata > 0) {
+            json.modeldata = this.modeldata;
+        }
         return json;
     }
 
@@ -205,7 +213,7 @@ class Item {
                 p('id', (this.levelReq > 0) ? `Lv. ${this.levelReq} ${this.rarity}` : `${this.rarity}`),
                 selection
             ),
-            html('img', '', { src: url, alt: this.name } ),
+            html('img', this.modeldata ? 'changed' : '', { src: url, alt: this.name } ),
             html('h3', '', { textContent: this.name } ),
             html('p', '', { textContent: this.description } ),
             div('row', 
@@ -451,6 +459,9 @@ function deserialiseItem(data) {
         if (data.material) item.setMaterial(data.material);
         if (data["item-type"]) item.setItemType(data["item-type"]);
         if (data.rarity && isValidRarity(data.rarity)) item.setRarity(data.rarity);
+        if (data.color) item.setColor(data.color);
+        if (data.levelReq && typeof data.levelReq === 'number') item.setLevelReq(data.levelReq);
+        if (data.modeldata && typeof data.modeldata === 'number') item.setModelData(data.modeldata);
     }
 
     if (data.stats || data.attributes) {

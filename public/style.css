@@ -53,6 +53,9 @@ body {
     max-width: 100px;
     border-radius: 10px;
 }
+.card > img.changed {
+    border: 2px solid var(--primary-color);
+}
 
 .id {
     font-size: 0.8em;

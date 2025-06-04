@@ -6,6 +6,7 @@
       "description": "A small wooden shield.",
       "material": "oak_slab",
       "item-type": "offhand",
+      "modeldata": 3,
       "stackable": false,
       "stats": {
         "defense": 5

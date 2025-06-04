@@ -170,15 +170,20 @@ app.put("/api/items/:id", (req, res) => {
         return res.status(400).send("Invalid item data");
     }
 
+    console.log("Updating item:", itemId, itemData);
+
     try {
         const updatedItem = deserialiseItem(itemData);
+        console.log(updatedItem);
         updatedItem.validate();
+        console.log("Item validated successfully:", updatedItem);
 
         data.updateItem(itemId, updatedItem);
         data.save();
         
         res.json(updatedItem.toJSON());
     } catch (error) {
+        console.error("Error validating item:", error);
         return res.status(400).send(`Error validating item: ${error.message}`);
     }
 });
