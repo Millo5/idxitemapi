@@ -14,6 +14,7 @@ const STAT = {
     LUCK: 'luck',               // Reroll chance for loot, default: 0.0 (0-1.0). Above 1 additional rolls are made.
 
     WEAPON_ATTACK_SPEED: 'weapon-attack-speed', // Attacks per second of a weapon, flat.
+    WEAPON_RANGE: 'weapon-range',           // Range of a weapon, flat.
 
     getAll() {
         return Object.values(this).filter(value => typeof value === 'string');

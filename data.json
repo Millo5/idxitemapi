@@ -137,7 +137,34 @@
       "stackable": false,
       "stats": {
         "damage": 2,
-        "weapon-attack-speed": 1.5
+        "weapon-attack-speed": 1.5,
+        "weapon-range": 15
+      }
+    },
+    {
+      "id": "longbow",
+      "name": "Longbow",
+      "description": "A longbow that has a longer range and deals more damage.",
+      "material": "bow",
+      "item-type": "ranged-weapon",
+      "rarity": "uncommon",
+      "stackable": false,
+      "stats": {
+        "damage": 4,
+        "weapon-attack-speed": 1.2,
+        "weapon-range": 25
+      }
+    },
+    {
+      "id": "arrow",
+      "name": "Arrow",
+      "description": "A simple arrow, used for ranged weapons.",
+      "material": "arrow",
+      "item-type": "arrow",
+      "stackable": false,
+      "stats": {
+        "damage": 1,
+        "weapon-attack-speed": 1
       }
     }
   ],
@@ -309,6 +336,19 @@
       "material": "arrow",
       "attribute-type": "enchantment",
       "target": "ranged-weapon"
+    },
+    {
+      "id": "short-bow",
+      "name": "Short Bow",
+      "description": "A short bow that is easier to handle but has less range.",
+      "material": "bow",
+      "attribute-type": "enchantment",
+      "target": "ranged-weapon",
+      "stats": {
+        "damage": 1,
+        "weapon-attack-speed": 1.8,
+        "weapon-range": 10
+      }
     }
   ]
 }

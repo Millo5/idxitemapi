@@ -36,6 +36,8 @@ const ITEM_TYPES = {
     // Reference requires `enchantment`
     ENCHANTMENT: 'enchantment',
 
+    ARROW: 'arrow', // Arrow items, which can be used with bows or crossbows. They may have their own stats or attributes.
+
     UNIQUE: 'unique', // Unique items, with their own required supporting data, such as lore, attributes, etc.
 
     
@@ -349,6 +351,7 @@ class AttributedItem extends StatsItem {
             ITEM_TYPES.LEGGINGS,
             ITEM_TYPES.BOOTS,
 
+            ITEM_TYPES.ARROW,
             ITEM_TYPES.CONSUMABLE
         ];
     }

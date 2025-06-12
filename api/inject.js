@@ -259,9 +259,37 @@ export default function inject(data) {
             .setRarity(RARITY.COMMON)
             .setStats(
                 STAT.DAMAGE, 2,
-                STAT.WEAPON_ATTACK_SPEED, 1.5
+                STAT.WEAPON_ATTACK_SPEED, 1.5,
+                STAT.WEAPON_RANGE, 15.0
             )
     )
+    data.addItem(
+        new AttributedItem("longbow")
+            .setName("Longbow")
+            .setDescription("A longbow that has a longer range and deals more damage.")
+            .setMaterial("bow")
+            .setItemType(ITEM_TYPES.RANGED_WEAPON)
+            .setRarity(RARITY.UNCOMMON)
+            .setStats(
+                STAT.DAMAGE, 4,
+                STAT.WEAPON_ATTACK_SPEED, 1.2,
+                STAT.WEAPON_RANGE, 25.0
+            )
+    )
+    data.addAttribute(
+        new Attribute("short-bow")
+            .setName("Short Bow")
+            .setDescription("A short bow that is easier to handle but has less range.")
+            .setMaterial("bow")
+            .setType(ATTRIBUTE_TYPE.ENCHANTMENT)
+            .setTarget(ATTRIBUTE_TARGET.RANGED_WEAPON)
+            .setStats(
+                STAT.DAMAGE, 1,
+                STAT.WEAPON_ATTACK_SPEED, 1.8,
+                STAT.WEAPON_RANGE, 10.0
+            )
+    )
+
     data.addAttribute(
         new Attribute("bow-accuracy")
             .setName("Accuracy")
@@ -269,6 +297,19 @@ export default function inject(data) {
             .setMaterial("arrow")
             .setType(ATTRIBUTE_TYPE.ENCHANTMENT)
             .setTarget(ATTRIBUTE_TARGET.RANGED_WEAPON)
+    )
+    // Arrow
+    data.addItem(
+        new AttributedItem("arrow")
+            .setName("Arrow")
+            .setDescription("A simple arrow, used for ranged weapons.")
+            .setMaterial("arrow")
+            .setItemType(ITEM_TYPES.ARROW)
+            .setRarity(RARITY.COMMON)
+            .setStats(
+                STAT.DAMAGE, 1,
+                STAT.WEAPON_ATTACK_SPEED, 1.0
+            )
     )
     
 
