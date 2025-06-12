@@ -127,6 +127,18 @@
         "attack-speed": 25
       },
       "enchantSlots": 4
+    },
+    {
+      "id": "simple-bow",
+      "name": "Simple Bow",
+      "description": "A basic bow, not very powerful but gets the job done.",
+      "material": "bow",
+      "item-type": "ranged-weapon",
+      "stackable": false,
+      "stats": {
+        "damage": 2,
+        "weapon-attack-speed": 1.5
+      }
     }
   ],
   "attributes": [
@@ -289,6 +301,14 @@
       "description": "A three hit swing combo.",
       "material": "iron_sword",
       "target": "melee-weapon"
+    },
+    {
+      "id": "bow-accuracy",
+      "name": "Accuracy",
+      "description": "Increases the accuracy of bows, reducing arrow spread.",
+      "material": "arrow",
+      "attribute-type": "enchantment",
+      "target": "ranged-weapon"
     }
   ]
 }

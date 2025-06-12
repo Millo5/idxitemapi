@@ -247,6 +247,29 @@ export default function inject(data) {
             .setRarity(RARITY.COMMON)
             .setAttributes("grapple")
     )
+
+
+    // bow
+    data.addItem(
+        new AttributedItem("simple-bow")
+            .setName("Simple Bow")
+            .setDescription("A basic bow, not very powerful but gets the job done.")
+            .setMaterial("bow")
+            .setItemType(ITEM_TYPES.RANGED_WEAPON)
+            .setRarity(RARITY.COMMON)
+            .setStats(
+                STAT.DAMAGE, 2,
+                STAT.WEAPON_ATTACK_SPEED, 1.5
+            )
+    )
+    data.addAttribute(
+        new Attribute("bow-accuracy")
+            .setName("Accuracy")
+            .setDescription("Increases the accuracy of bows, reducing arrow spread.")
+            .setMaterial("arrow")
+            .setType(ATTRIBUTE_TYPE.ENCHANTMENT)
+            .setTarget(ATTRIBUTE_TARGET.RANGED_WEAPON)
+    )
     
 
 
